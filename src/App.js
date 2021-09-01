@@ -7,6 +7,33 @@ import CreateContent from "./components/CreateContent";
 import UpdateContent from "./components/UpdateContent";
 import './App.css';
 
+const express = require("express");
+const mysql = require("mysql");
+const db = require("./db/index.js");
+
+const app = express();
+
+app.set('port', 3000);
+
+app.get("/nic_name", (req, res) => {
+    db.connection.query( `SELECT * FROM nic_name`, (err, results)=>{
+        if(err)
+          console.log(err);
+        res.send(results);
+    });
+});
+
+app.get("/id", (req, res) => {
+    db.connection.query( `SELECT * FROM id`, (err, results)=>{
+        if(err)
+          console.log(err);
+        res.send(results);
+    });
+});
+
+app.listen(app.get("port"));
+console.log("Listening on", app.get("port"));
+
 class App extends Component {
   constructor(props){
     super(props);
